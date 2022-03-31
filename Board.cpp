@@ -69,17 +69,15 @@ std::vector<std::pair<int, int>> Board::CanBeat(int line, int column) {
             (board_[line - 1][column + 1].color == "red")) {
             possible_moves.emplace_back(line - 2,column + 2);
         }
-        if (board_[line][column].is_queen) {
-            if ((IsCellExist(line + 2, column - 2)) &&
-                (board_[line + 2][column - 2].color == "empty") &&
-                (board_[line + 1][column - 1].color == "red")) {
-                possible_moves.emplace_back(line + 2,column - 2);
-            }
-            if ((IsCellExist(line + 2, column + 2)) &&
-                (board_[line + 2][column + 2].color == "empty") &&
-                (board_[line + 1][column + 1].color == "red")) {
-                possible_moves.emplace_back(line + 2,column + 2);
-            }
+        if ((IsCellExist(line + 2, column - 2)) &&
+            (board_[line + 2][column - 2].color == "empty") &&
+            (board_[line + 1][column - 1].color == "red")) {
+            possible_moves.emplace_back(line + 2,column - 2);
+        }
+        if ((IsCellExist(line + 2, column + 2)) &&
+            (board_[line + 2][column + 2].color == "empty") &&
+            (board_[line + 1][column + 1].color == "red")) {
+            possible_moves.emplace_back(line + 2,column + 2);
         }
     }
     if (board_[line][column].color == "red") {
@@ -93,17 +91,15 @@ std::vector<std::pair<int, int>> Board::CanBeat(int line, int column) {
             (board_[line + 1][column + 1].color == "green")) {
             possible_moves.emplace_back(line + 2,column + 2);
         }
-        if (board_[line][column].is_queen) {
-            if ((IsCellExist(line - 2, column - 2)) &&
-                (board_[line - 2][column - 2].color == "empty") &&
-                (board_[line - 1][column - 1].color == "green")) {
-                possible_moves.emplace_back(line - 2,column - 2);
-            }
-            if ((IsCellExist(line - 2, column + 2)) &&
-                (board_[line - 2][column + 2].color == "empty") &&
-                (board_[line - 1][column + 1].color == "green")) {
-                possible_moves.emplace_back(line - 2,column + 2);
-            }
+        if ((IsCellExist(line - 2, column - 2)) &&
+            (board_[line - 2][column - 2].color == "empty") &&
+            (board_[line - 1][column - 1].color == "green")) {
+            possible_moves.emplace_back(line - 2,column - 2);
+        }
+        if ((IsCellExist(line - 2, column + 2)) &&
+            (board_[line - 2][column + 2].color == "empty") &&
+            (board_[line - 1][column + 1].color == "green")) {
+            possible_moves.emplace_back(line - 2,column + 2);
         }
     }
     return possible_moves;
@@ -176,9 +172,15 @@ void Board::Move(std::vector<std::pair<int, int>>& path) {
         return;
     }
     for (int i = 0; i < path.size() - 1; ++i) {
-        board_[path[1].first][path[1].second] = board_[path[0].first][path[0].second];
-        DeleteChecker(path[0].first, path[0].second);
-        DeleteChecker((path[0].first + path[1].first) / 2, (path[0].second + path[1].second) / 2);
+        board_[path[i + 1].first][path[i + 1].second] = board_[path[i].first][path[i].second];
+        DeleteChecker(path[i].first, path[i].second);
+        DeleteChecker((path[i].first + path[i + 1].first) / 2, (path[i].second + path[i + 1].second) / 2);
+        if ((board_[path[1].first][path[1].second].color == "green") && (path[1].first == 7)) {
+            board_[path[1].first][path[1].second].is_queen = true;
+        }
+        if ((board_[path[1].first][path[1].second].color == "red") && (path[1].first == 0)) {
+            board_[path[1].first][path[1].second].is_queen = true;
+        }
     }
 }
 
