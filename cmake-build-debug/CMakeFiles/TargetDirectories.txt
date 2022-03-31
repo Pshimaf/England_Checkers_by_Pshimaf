@@ -1,0 +1,3 @@
+/home/pshimaf/CLionProjects/OneC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/pshimaf/CLionProjects/OneC/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/pshimaf/CLionProjects/OneC/cmake-build-debug/CMakeFiles/OneC.dir
